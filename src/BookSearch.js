@@ -9,36 +9,39 @@ class BookSearch extends Component {
     
 	state = {
 		query: '',
-		bookSearch: []
-		
+		bookSearch: [],
+		error: false
 	}
 
 	updateBookShelf = (event) => {
 		const query = event.target.value
 		this.setState (
 			{query: query}
-		    
-		    
 	)
+
    if(query) {
 			BooksAPI.search(query, 20).then((res) => {
 		    if(!res || res.error || res === undefined) {
-				this.setState({ bookSearch: [] })
+				this.setState({ bookSearch: [], error: true })
 			
 				return
 
-				}
+				} 
 		      	this.setState(state => ({
-		        	bookSearch: res
+		        	bookSearch: res, error	: false
 		        	
 		      	}))
 		    })
-		}
+		} else {
+		this.setState(state => ({
+			bookSearch: [], error: false
+		}))
+	  }
 
-	}
+	} 
 
 	render() {
-		const { query, bookSearch} = this.state
+		const { query, bookSearch, error} = this.state
 		const {books,onShelf} = this.props
 		return (
 			<div className="search-books">
@@ -60,12 +63,22 @@ class BookSearch extends Component {
 	              	{bookSearch.filter((book) => book.imageLinks !== undefined).map((book) => {
 		        			return (
 		        				<li key={book.id}>
-			        				<Book booksMain={books} book={book} onShelf={onShelf}/>
+			        				<Book books={books} book={book} onShelf={onShelf}/>
 			        			</li>
 		        			)
 		        		})}
 	              </ol>
-	            </div>
+
+	              </div>
+	            {error && (
+	            	
+                 <div>
+                <div className='search-books-noresults'>
+                  <h1>0 Search Results found.</h1>
+                  </div>
+                </div>
+            
+	              )}
 	            
           </div>
 		)

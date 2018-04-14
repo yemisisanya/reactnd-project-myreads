@@ -11,7 +11,8 @@ class Shelved extends Component {
 
        const shelfStatus = [{ bookType: 'currentlyReading', title: 'Currently Reading' },
                             { bookType: 'wantToRead', title: 'Want to Read' },
-                            { bookType: 'read', title: 'Read' }
+                            { bookType: 'read', title: 'Read' },
+                            
                            ]
 
 		return (

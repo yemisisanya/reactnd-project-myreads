@@ -4,7 +4,7 @@ import ShelfChanger from './ShelfChanger'
 class Book extends Component {
 
     render() {
-        const { book, onShelf, booksM } = this.props
+        const { book, onShelf, books } = this.props
 
         const imageCover = book.imageLinks.smallThumbnail
         return(
@@ -15,7 +15,7 @@ class Book extends Component {
 
                         style={{ width: 130, height: 162, backgroundImage: `url(${imageCover})` }}>
                         
-                        <ShelfChanger book={book} booksM={booksM} onShelf={onShelf} />
+                        <ShelfChanger book={book} books={books} onShelf={onShelf} />
 
                         </div>
                         
